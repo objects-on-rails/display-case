@@ -6,6 +6,6 @@ Gem::Specification.new do |s|
   s.description = "An implementation of the Exhibit pattern, as described in Objects on Rails"
   s.authors     = ["Avdi Grimm"]
   s.email       = ["sam@codeodor.com"]
-  s.files       = ["lib/display-case", "lib/display-case.rb", "LICENSE", "README.md"]
+  s.files       = <%= Dir.glob("{bin,lib}/**/*") + %w(LICENSE README.md) %>
   s.homepage    = 'https://github.com/objects-on-rails/display-case'
 end
