@@ -1,6 +1,6 @@
 require 'ERB'
 
-task :gemspec do
+task 'gemspec' do
   gemspec_template = IO.read('display-case.gemspec.erb')
   
   File.open('display-case.gemspec', 'w') do |gemspec_file|  
