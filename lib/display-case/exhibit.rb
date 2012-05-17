@@ -3,14 +3,13 @@ require 'active_support/core_ext'
 
 class Exhibit < SimpleDelegator
   def self.exhibits
-    [
-     EnumerableExhibit,
-     BlogExhibit,
-     TextPostExhibit,
-     PicturePostExhibit,
-     LinkExhibit,
-     TagListExhibit
-    ]
+    exhibit_classes = Dir["#{File.dirname(Rails.root + 'app/exhibits/**/*.rb')}"].map do |f| 
+      require "#{f}"
+      Module.const_get(File.basename(f, '.rb').camelize)
+    end
+    exhibit_classes << EnumerableExhibit
+    Rails.logger.debug("Loaded exhibit classes: #{exhibit_classes.inspect}")
+    exhibit_classes
   end
 
   def self.exhibit(object, context)
