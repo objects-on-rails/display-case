@@ -2,15 +2,14 @@ require 'delegate'
 require 'active_support/core_ext'
 
 class Exhibit < SimpleDelegator
+  @@exhibits = []
+  
   def self.exhibits
-    [
-     EnumerableExhibit,
-     BlogExhibit,
-     TextPostExhibit,
-     PicturePostExhibit,
-     LinkExhibit,
-     TagListExhibit
-    ]
+    @@exhibits
+  end
+  
+  def self.inherited(child)
+    @@exhibits << child
   end
 
   def self.exhibit(object, context)
