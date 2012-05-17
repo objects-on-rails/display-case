@@ -2,18 +2,14 @@ require 'delegate'
 require 'active_support/core_ext'
 
 class Exhibit < SimpleDelegator
+  @@exhibits = []
+  
   def self.exhibits
-    exhibit_classes = Dir["#{File.dirname(Rails.root + 'app/exhibits/**/*.rb')}"].map do |f| 
-      if Rails.env.development?
-        load "#{f}"
-      else
-        require "#{f}"
-      end
-      Module.const_get(File.basename(f, '.rb').camelize)
-    end
-    exhibit_classes << EnumerableExhibit
-    Rails.logger.debug("Loaded exhibit classes: #{exhibit_classes.inspect}")
-    exhibit_classes
+    @@exhibits
+  end
+  
+  def self.inherited(child)
+    @@exhibits << child
   end
 
   def self.exhibit(object, context)

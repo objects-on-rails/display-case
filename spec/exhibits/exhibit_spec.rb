@@ -1,11 +1,16 @@
 require_relative '../spec_helper_lite'
-require_relative '../../lib/display-case/exhibit'
+require_relative '../../lib/display_case'
 
 describe Exhibit do
   subject             { exhibit_class.new(model, context) }
   let(:exhibit_class) { Class.new(Exhibit) }
   let(:model)         { Object.new }
   let(:context)       { Object.new }
+
+  it 'registers child Exhibits when inherited' do
+    class TestExhibit < Exhibit; end
+    Exhibit.exhibits.include?(TestExhibit).must_equal true
+  end
 
   describe '.exhibit_query' do
     it 'wraps the given methods so that their results are exhibited' do

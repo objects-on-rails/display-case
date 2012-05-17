@@ -1,5 +1,5 @@
 require_relative '../spec_helper_lite'
-require_relative '../../lib/display-case/enumerable_exhibit'
+require_relative '../../lib/display_case'
 
 describe EnumerableExhibit do
   describe "class" do
