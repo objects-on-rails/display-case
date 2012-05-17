@@ -1,5 +1,5 @@
 require_relative '../spec_helper_lite'
-require_relative '../../lib/display_case/exhibit'
+require_relative '../../lib/display_case'
 
 describe Exhibit do
   subject             { exhibit_class.new(model, context) }

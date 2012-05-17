@@ -1,4 +1,4 @@
-require_relative '../../../lib/display_case/exhibit'
+require_relative '../../../lib/display_case'
 
 class BlogExhibit < Exhibit
   def self.applicable_to?(object)
