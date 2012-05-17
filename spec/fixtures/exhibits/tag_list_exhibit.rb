@@ -1,4 +1,4 @@
-require_relative '../../../lib/display-case/exhibit'
+require_relative '../../../lib/display_case/exhibit'
 
 class TagListExhibit < Exhibit
   def self.applicable_to?(object)

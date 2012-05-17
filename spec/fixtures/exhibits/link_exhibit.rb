@@ -1,4 +1,4 @@
-require_relative '../../../lib/display-case/exhibit'
+require_relative '../../../lib/display_case/exhibit'
 class LinkExhibit < Exhibit
   RELATIONS = %w[next prev up]
 

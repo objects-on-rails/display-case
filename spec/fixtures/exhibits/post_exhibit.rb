@@ -1,4 +1,4 @@
-require_relative '../../../lib/display-case/exhibit'
+require_relative '../../../lib/display_case/exhibit'
 require_relative '../models/taggable'
 
 class PostExhibit < Exhibit

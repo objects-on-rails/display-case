@@ -1,6 +1,6 @@
 require_relative '../spec_helper_lite'
 stub_class 'Exhibit'
-require_relative '../../lib/display-case/exhibits_helper'
+require_relative '../../lib/display_case/exhibits_helper'
 
 describe ExhibitsHelper do
   before do
