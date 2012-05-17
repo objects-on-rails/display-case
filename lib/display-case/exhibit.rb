@@ -4,7 +4,11 @@ require 'active_support/core_ext'
 class Exhibit < SimpleDelegator
   def self.exhibits
     exhibit_classes = Dir["#{File.dirname(Rails.root + 'app/exhibits/**/*.rb')}"].map do |f| 
-      require "#{f}"
+      if Rails.env.development?
+        load "#{f}"
+      else
+        require "#{f}"
+      end
       Module.const_get(File.basename(f, '.rb').camelize)
     end
     exhibit_classes << EnumerableExhibit
