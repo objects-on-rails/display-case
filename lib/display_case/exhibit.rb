@@ -14,6 +14,7 @@ class Exhibit < SimpleDelegator
 
   def self.exhibit(object, context)
     return object if exhibited_object?(object)
+    Rails.logger.debug "Registered exhibits: #{@@exhibits}"
     Rails.logger.debug "Exhibiting #{object.inspect}"
     Rails.logger.debug "Exhibit context: #{context}"
     object = Exhibited.new(object, context)
