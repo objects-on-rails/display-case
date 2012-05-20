@@ -1,5 +1,6 @@
 require 'delegate'
 require 'active_support/core_ext'
+require 'display_case/railtie' if defined?(Rails)
 
 class Exhibit < SimpleDelegator
   @@exhibits = []
