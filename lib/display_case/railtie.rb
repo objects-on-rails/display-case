@@ -1,9 +1,7 @@
 module DisplayCase
   class Railtie < Rails::Railtie
-    initializer "display_case.load_exhibits" do |app|
-      ActiveSupport.on_load :display_case do
-        DisplayCase.find_definitions
-      end
-    end
+    config.to_prepare do
+      DisplayCase.find_definitions if Rails.env.development?
+    end    
   end
 end
