@@ -1,17 +1,17 @@
 require_relative '../spec_helper_lite'
-stub_class 'Exhibit'
+stub_class 'DisplayCase::Exhibit'
 require_relative '../../lib/display_case'
 
-describe ExhibitsHelper do
+describe DisplayCase::ExhibitsHelper do
   before do
     @it = Object.new
-    @it.extend ExhibitsHelper
+    @it.extend DisplayCase::ExhibitsHelper
     @context = stub!
   end
 
   it "delegates exhibition decisions to Exhibit" do
     model = Object.new
-    mock(::Exhibit).exhibit(model, @context)
+    mock(::DisplayCase::Exhibit).exhibit(model, @context)
     @it.exhibit(model, @context)
   end
 end

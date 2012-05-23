@@ -1,15 +1,15 @@
 require_relative '../spec_helper_lite'
 require_relative '../../lib/display_case'
 
-describe Exhibit do
+describe DisplayCase::Exhibit do
   subject             { exhibit_class.new(model, context) }
-  let(:exhibit_class) { Class.new(Exhibit) }
+  let(:exhibit_class) { Class.new(DisplayCase::Exhibit) }
   let(:model)         { Object.new }
   let(:context)       { Object.new }
 
   it 'registers child Exhibits when inherited' do
-    class TestExhibit < Exhibit; end
-    Exhibit.exhibits.include?(TestExhibit).must_equal true
+    class TestExhibit < DisplayCase::Exhibit; end
+    DisplayCase::Exhibit.exhibits.include?(TestExhibit).must_equal true
   end
 
   describe '.exhibit_query' do
@@ -23,11 +23,11 @@ describe Exhibit do
       end
 
       mock(model).foo { foo_result }
-      mock(Exhibit).exhibit(foo_result, context) { exhibited_foo }
+      mock(DisplayCase::Exhibit).exhibit(foo_result, context) { exhibited_foo }
       subject.foo.must_be_same_as(exhibited_foo)
 
       mock(model).bar(123,456) { bar_result }
-      mock(Exhibit).exhibit(bar_result, context) { exhibited_bar }
+      mock(DisplayCase::Exhibit).exhibit(bar_result, context) { exhibited_bar }
       subject.bar(123,456).must_be_same_as(exhibited_bar)
     end
   end
@@ -36,7 +36,7 @@ describe Exhibit do
     it 'calls Exhibt.exhibit with current context and model' do
       result      = Object.new
       other_model = Object.new
-      mock(Exhibit).exhibit(other_model, context){ result }
+      mock(DisplayCase::Exhibit).exhibit(other_model, context){ result }
       subject.exhibit(other_model).must_be_same_as(result)
     end
   end

@@ -31,7 +31,7 @@ Your exhibits will look something like this:
 ``` ruby
 # app/exhibits/league_exhibit.rb
 
-class LeagueExhibit < Exhibit
+class LeagueExhibit < DisplayCase::Exhibit
   def self.applicable_to?(object)
     object.class.name == 'League'
   end
@@ -46,6 +46,7 @@ Then in your controller, where you're instantiating a League, wrap it in a call 
 ``` ruby
 # app/controllers/leagues_controller.rb
 class LeaguesController < ApplicationController
+  include DisplayCase::ExhibitsHelper
   # ...
   def index
     # display_case automatically wraps the individual objects contained in 

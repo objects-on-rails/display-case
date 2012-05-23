@@ -1,9 +1,9 @@
 require_relative '../spec_helper_lite'
 require_relative '../../lib/display_case'
 
-describe EnumerableExhibit do
+describe DisplayCase::EnumerableExhibit do
   describe "class" do
-    subject { EnumerableExhibit }
+    subject { DisplayCase::EnumerableExhibit }
 
     it "is applicable to Enumerables" do
       assert subject.applicable_to?([])
@@ -19,7 +19,7 @@ describe EnumerableExhibit do
     end
   end
 
-  subject { EnumerableExhibit.new(model, context) }
+  subject { DisplayCase::EnumerableExhibit.new(model, context) }
   let(:model) { ["e1", "e2", "e3"] }
   let(:context) { Object.new }
 

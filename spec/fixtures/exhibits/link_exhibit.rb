@@ -1,5 +1,5 @@
 require_relative '../../../lib/display_case'
-class LinkExhibit < Exhibit
+class LinkExhibit < DisplayCase::Exhibit
   RELATIONS = %w[next prev up]
 
   def self.applicable_to?(object)
