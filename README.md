@@ -7,7 +7,7 @@ Description
 -----------
 If the Model is concerned with storing and manipulating business data, and the View is concerned with displaying it, you can think of the Exhibit as standing between them deciding which data to show, and in what order. It may also provide some extra presentation-specific information (such as the specific URLs for related resources) which the business model has no knowledge of by itself.
 
-The Exhibit object is so named because it is like a museum display case for an artifact or a work of art. It does not obscure any of the features of the object being presented. Rather, it tries showcase the object in the best light to a human audience, while also presenting meta-information about the object and cross-references to other objects in the museum's collection.
+The Exhibit object is so named because it is like a museum display case for an artifact or a work of art. It does not obscure any of the features of the object being presented. Rather, it tries to showcase the object in the best light to a human audience, while also presenting meta-information about the object and cross-references to other objects in the museum's collection.
 
 Technically, exhibit objects are a type of Decorator specialized for presenting models to an end user. 
 
