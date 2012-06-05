@@ -71,4 +71,17 @@ Finally, in your view, you can use your Exhibit:
 
 Configuration
 -------------
-Because Rails lazily-loads files, in development mode DisplayCase will search /app/exhibits to load the Exhibits found there. If your Exhibits are elsewhere, you can set `DisplayCase.definition_file_paths = ['list/of/directories', 'to/find/exhibits']` in your config/environments/development.rb.
+Several configuration options can be set via an initializer:
+
+1. `definition_file_paths` Because Rails lazily-loads files, in development mode DisplayCase will search /app/exhibits to load the Exhibits found there. If your Exhibits are elsewhere, you can set `config.definition_file_paths = ['list/of/directories', 'to/find/exhibits']` in your initializers/display_case.rb.
+1. `explicit` By default this option is false and Exhibits will be dynamically added via the inherited callback.
+1. `exhibits` If `explicit` is true you must explicitly set the Exhibits you wish to use in the order you want them evaluated. You can set `config.exhibits = [AnExhibit,AnotherExhibit]` in your initializers/display_case.rb.
+
+An example `initializers/display_case.rb`
+```
+DisplayCase.configure do |config|
+  config.definition_file_paths = ['app/exhibits','some/other/path']
+  config.explicit = true
+  config.exhibits = [MyFirstExhibit,MySecondExhibit]
+end
+```
