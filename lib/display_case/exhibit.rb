@@ -1,13 +1,18 @@
 require 'delegate'
 require 'active_support/core_ext'
 require 'display_case/railtie' if defined?(Rails)
+require_relative 'configuration'
 
 module DisplayCase
   class Exhibit < SimpleDelegator
     @@exhibits = []
   
     def self.exhibits
-      @@exhibits
+      if DisplayCase.configuration.explicit?
+        DisplayCase.configuration.exhibits
+      else
+        @@exhibits
+      end
     end
   
     def self.inherited(child)
