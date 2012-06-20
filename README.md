@@ -42,7 +42,7 @@ class LeagueExhibit < DisplayCase::Exhibit
 end
 ```
 
-Then in your controller, where you're instantiating a League, wrap it in a call to the `exhibit` helper to turn get the Exhibited object, rather than the raw one.
+Then in your controller, where you're instantiating a League, wrap it in a call to the `exhibit` helper to get the Exhibited object, rather than the raw one.
 ``` ruby
 # app/controllers/leagues_controller.rb
 class LeaguesController < ApplicationController
