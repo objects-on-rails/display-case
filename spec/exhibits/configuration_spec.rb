@@ -8,8 +8,9 @@ module DisplayCase
       it 'should not include BlogExhibit when explicit and no exhibits given' do
         DisplayCase.configure do |config|
           config.explicit = true
+          config.exhibits = []
         end
-        refute_includes(Exhibit.exhibits,BlogExhibit)
+        refute_includes(Exhibit.exhibits, BlogExhibit)
       end
 
       it 'should include BlogExhibit when explicit and BlogExhibit listed' do
@@ -17,7 +18,7 @@ module DisplayCase
           config.explicit = true
           config.exhibits = [BlogExhibit]
         end
-        assert_includes(Exhibit.exhibits,BlogExhibit)
+        assert_includes(Exhibit.exhibits, BlogExhibit)
       end
     end
   end
