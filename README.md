@@ -85,3 +85,7 @@ DisplayCase.configure do |config|
   config.exhibits = [MyFirstExhibit,MySecondExhibit]
 end
 ```
+
+Wrong url with extra parameters using an exhibited model?
+------------------
+See this issue for the reason: https://github.com/objects-on-rails/display-case/issues/8#issuecomment-6460256
