@@ -21,14 +21,17 @@ module DisplayCase
 
     def self.exhibit(object, context)
       return object if exhibited_object?(object)
-      Rails.logger.debug "Registered exhibits: #{@@exhibits}"
-      Rails.logger.debug "Exhibiting #{object.inspect}"
-      Rails.logger.debug "Exhibit context: #{context}"
+      if defined? Rails
+        Rails.logger.debug "Registered exhibits: #{@@exhibits}"
+        Rails.logger.debug "Exhibiting #{object.inspect}"
+        Rails.logger.debug "Exhibit context: #{context}"
+      end
+      
       object = Exhibited.new(object, context)
       exhibits.inject(object) do |object, exhibit_class|
         exhibit_class.exhibit_if_applicable(object, context)
       end.tap do |obj|
-        Rails.logger.debug "Exhibits applied: #{obj.inspect_exhibits}"
+        Rails.logger.debug "Exhibits applied: #{obj.inspect_exhibits}" if defined? Rails
       end
     end
 
