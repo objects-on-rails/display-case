@@ -1,4 +1,4 @@
-require 'ERB'
+require 'erb'
 
 task 'gemspec' do
   gemspec_template = IO.read('display_case.gemspec.erb')
