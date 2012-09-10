@@ -33,6 +33,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-nulldb-adapter!
+  json-jruby
   minitest (~> 2.12.0)
   rake
   rr
