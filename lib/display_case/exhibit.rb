@@ -36,14 +36,14 @@ module DisplayCase
     end
 
     def self.exhibit_if_applicable(object, context)
-      if applicable_to?(object)
+      if applicable_to?(object, context)
         new(object, context)
       else
         object
       end
     end
 
-    def self.applicable_to?(object)
+    def self.applicable_to?(object, context)
       false
     end
 
