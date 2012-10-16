@@ -19,7 +19,7 @@ module DisplayCase
       @@exhibits << child
     end
 
-    def self.exhibit(object, context)
+    def self.exhibit(object, context=nil)
       return object if exhibited_object?(object)
       if defined? Rails
         Rails.logger.debug "Registered exhibits: #{@@exhibits}"
@@ -43,7 +43,7 @@ module DisplayCase
       end
     end
 
-    def self.applicable_to?(object, context)
+    def self.applicable_to?(object, context=nil)
       false
     end
 

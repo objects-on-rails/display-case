@@ -4,7 +4,7 @@ module DisplayCase
   class EnumerableExhibit < Exhibit
     include Enumerable
 
-    def self.applicable_to?(object, context)
+    def self.applicable_to?(object, context=nil)
       # ActiveRecord::Relation, surprisingly, is not Enumerable. But it
       # behaves sufficiently similarly for our purposes.
       object_is_any_of?(object, 'Enumerable', 'ActiveRecord::Relation')
