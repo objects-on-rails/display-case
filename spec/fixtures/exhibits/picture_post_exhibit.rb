@@ -1,7 +1,7 @@
 require_relative 'post_exhibit'
 
 class PicturePostExhibit < PostExhibit
-  def self.applicable_to?(object)
+  def self.applicable_to?(object, context=nil)
     super && object.picture?
   end
 
