@@ -15,7 +15,7 @@ module DisplayCase
     # dynamically collected with the inherited callback. By default, this is false
     # and the list will be generated via the inherited callback.
     attr_accessor :explicit
-    
+
     # An Array of strings specifying locations that should be searched for
     # exhibit classes and definitions. By default, "/app/exhibits" will be searched and
     # existing file will be loaded.
@@ -32,7 +32,7 @@ module DisplayCase
     end
 
     def exhibits
-      [DisplayCase::Exhibit::Exhibited,DisplayCase::EnumerableExhibit] + @exhibits
+      [DisplayCase::Exhibit::Exhibited,DisplayCase::BasicExhibit,DisplayCase::EnumerableExhibit] + @exhibits
     end
 
     def exhibits=(val)

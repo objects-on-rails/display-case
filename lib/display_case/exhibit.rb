@@ -6,7 +6,7 @@ require_relative 'configuration'
 module DisplayCase
   class Exhibit < SimpleDelegator
     @@exhibits = []
-  
+
     def self.exhibits
       if DisplayCase.configuration.explicit?
         DisplayCase.configuration.exhibits
@@ -14,7 +14,7 @@ module DisplayCase
         @@exhibits
       end
     end
-  
+
     def self.inherited(child)
       @@exhibits << child
     end
@@ -26,7 +26,7 @@ module DisplayCase
         Rails.logger.debug "Exhibiting #{object.inspect}"
         Rails.logger.debug "Exhibit context: #{context}"
       end
-      
+
       object = Exhibited.new(object, context)
       exhibits.inject(object) do |object, exhibit_class|
         exhibit_class.exhibit_if_applicable(object, context)
@@ -88,18 +88,6 @@ module DisplayCase
 
     def exhibit(model)
       Exhibit.exhibit(model, context)
-    end
-
-    def to_partial_path
-      if __getobj__.respond_to?(:to_partial_path)
-        __getobj__.to_partial_path.dup
-      else
-        partialize_name(__getobj__.class.name)
-      end
-    end
-
-    def render(template)
-      template.render(:partial => to_partial_path, :object => self)
     end
 
     def exhibit_chain
