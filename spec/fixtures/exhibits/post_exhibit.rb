@@ -3,7 +3,7 @@ require_relative '../models/taggable'
 
 class PostExhibit < DisplayCase::Exhibit
   include ::Conversions
-  def self.applicable_to?(object)
+  def self.applicable_to?(object, context=nil)
     object_is_any_of?(object, 'Post')
   end
 
