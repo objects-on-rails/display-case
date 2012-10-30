@@ -14,7 +14,7 @@ module DisplayCase
       end
     end
 
-    def render(template)
+    def render(template = self.context)
       template.render(:partial => to_partial_path, :object => self)
     end
   end
