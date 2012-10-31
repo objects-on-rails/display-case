@@ -2,10 +2,6 @@ require_relative 'exhibit'
 
 module DisplayCase
   class BasicExhibit < Exhibit
-    def self.applicable_to?(*args)
-      true
-    end
-
     def to_partial_path
       if __getobj__.respond_to?(:to_partial_path)
         __getobj__.to_partial_path.dup

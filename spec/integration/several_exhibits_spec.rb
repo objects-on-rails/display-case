@@ -25,6 +25,10 @@ describe "several exhibits" do
     @exhibited.render(context)
   end
 
+  it "should apply Basic Exhibit by default" do
+    @exhibited.exhibit_chain.must_include DisplayCase::BasicExhibit
+  end
+
   private
   def new_exhibit
     Class.new(DisplayCase::Exhibit) { def self.applicable_to?(*args); true; end }

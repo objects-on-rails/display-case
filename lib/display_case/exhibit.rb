@@ -27,7 +27,7 @@ module DisplayCase
         Rails.logger.debug "Exhibit context: #{context}"
       end
 
-      object = Exhibited.new(object, context)
+      object = BasicExhibit.new(Exhibited.new(object, context), context)
       exhibits.inject(object) do |object, exhibit_class|
         exhibit_class.exhibit_if_applicable(object, context)
       end.tap do |obj|
