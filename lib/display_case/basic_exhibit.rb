@@ -10,7 +10,7 @@ module DisplayCase
       end
     end
 
-    def render(template = self.context)
+    def render(template)
       template.render(:partial => to_partial_path, :object => self)
     end
   end
