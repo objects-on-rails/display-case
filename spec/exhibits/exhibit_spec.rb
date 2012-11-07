@@ -40,17 +40,4 @@ describe DisplayCase::Exhibit do
       subject.exhibit(other_model).must_be_same_as(result)
     end
   end
-
-  describe '#to_partial_path' do
-    it 'delegates to the model if it has the method' do
-      stub(model).to_partial_path{ "MODEL_PARTIAL_PATH" }
-      subject.to_partial_path.must_equal("MODEL_PARTIAL_PATH")
-    end
-
-    it 'uses munged model class name if it cannot delegate' do
-      stub(my_class = Object.new).name{ "MyModule::MyClass" }
-      stub(model).class{ my_class }
-      subject.to_partial_path.must_equal('/my_module/my_classes/my_class')
-    end
-  end
 end
