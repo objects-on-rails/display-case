@@ -103,7 +103,7 @@ module DisplayCase
     end
 
     def exhibit_chain
-      inner_exhibits = defined?(super) ? super : []
+      inner_exhibits = __getobj__.respond_to?(:exhibit_chain) ? __getobj__.exhibit_chain : []
       [__class__] + inner_exhibits
     end
 
