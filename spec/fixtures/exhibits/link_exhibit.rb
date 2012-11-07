@@ -2,7 +2,7 @@ require_relative '../../../lib/display_case'
 class LinkExhibit < DisplayCase::Exhibit
   RELATIONS = %w[next prev up]
 
-  def self.applicable_to?(object)
+  def self.applicable_to?(object, context=nil)
     object_is_any_of?(object, 'Post')
   end
 

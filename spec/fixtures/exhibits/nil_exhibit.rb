@@ -1,8 +1,8 @@
 class NilExhibit < DisplayCase::Exhibit
-  def self.applicable_to?(object)
+  def self.applicable_to?(object, context=nil)
     object.class.name == 'String' || object.nil?
   end
-  
+
   def name
     if __getobj__.nil?
       return "I am nil!"
