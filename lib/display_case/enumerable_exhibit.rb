@@ -34,9 +34,10 @@ module DisplayCase
     end
 
     def each(*)
-      super do |e|
-        yield exhibit(e)
-      end
+      __getobj__.map do |e|
+        yield exhibit(e) if block_given?
+        exhibit(e)
+      end.each
     end
 
     # `render '...', :collection => self` will call #to_ary on this
