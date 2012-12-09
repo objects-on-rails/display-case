@@ -38,6 +38,19 @@ describe DisplayCase::EnumerableExhibit do
       subject.each do |e| results << e end
       results.must_equal(["exhibit(e1)", "exhibit(e2)", "exhibit(e3)"])
     end
+
+    it "returns enumerator" do
+      subject.each.must_be_instance_of(Enumerator)
+    end
+
+    it "chains with_index" do
+      results = []
+      subject.each.with_index do |*e| results << e end
+      results.must_equal([
+                          ["exhibit(e1)", 0],
+                          ["exhibit(e2)", 1],
+                          ["exhibit(e3)", 2]])
+    end
   end
 
   describe "#each_with_index" do
