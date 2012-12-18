@@ -85,6 +85,14 @@ module DisplayCase
     def class
       __getobj__.class
     end
+    
+    alias_method :__kind_of__?, :kind_of?
+    def kind_of?(klass)
+      __getobj__.kind_of?(klass)
+    end
+    
+    alias_method :__is_a__?, :is_a?
+    alias_method :is_a?, :kind_of?
 
     def exhibit(model)
       Exhibit.exhibit(model, context)

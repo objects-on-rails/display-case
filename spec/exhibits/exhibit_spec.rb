@@ -12,6 +12,19 @@ describe DisplayCase::Exhibit do
     DisplayCase::Exhibit.exhibits.include?(TestExhibit).must_equal true
   end
 
+  it 'reports its type as if it was the original object' do
+    subject.class.must_equal model.class
+    subject.must_be_kind_of model.class #wtf -> why does this pass?
+    assert subject.kind_of?(model.class), "The subject class (#{subject.class}) is not kind_of? the model class (#{model.class})."
+    assert subject.is_a?(model.class), "The subject class (#{subject.class}) is not is_a? the model class (#{model.class})."
+  end
+  
+  it 'reports its real type if you ask it' do 
+    subject.__class__.must_equal exhibit_class
+    assert !subject.__kind_of__?(model.class), "The subject should not __kind_of be the model."
+    assert !subject.__is_a__?(model.class), "The subject should not __is_a be the model."
+  end
+
   describe '.exhibit_query' do
     it 'wraps the given methods so that their results are exhibited' do
       foo_result    = Object.new
