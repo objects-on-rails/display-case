@@ -93,6 +93,11 @@ module DisplayCase
     
     alias_method :__is_a__?, :is_a?
     alias_method :is_a?, :kind_of?
+    
+    alias_method :__instance_of__?, :instance_of?
+    def instance_of?(klass)
+      __getobj__.instance_of?(klass)
+    end
 
     def exhibit(model)
       Exhibit.exhibit(model, context)

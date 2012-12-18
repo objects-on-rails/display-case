@@ -17,12 +17,14 @@ describe DisplayCase::Exhibit do
     subject.must_be_kind_of model.class #wtf -> why does this pass?
     assert subject.kind_of?(model.class), "The subject class (#{subject.class}) is not kind_of? the model class (#{model.class})."
     assert subject.is_a?(model.class), "The subject class (#{subject.class}) is not is_a? the model class (#{model.class})."
+    assert subject.instance_of?(model.class), "The subject class (#{subject.class}) is not an instance_of? the model class (#{model.class})."
   end
   
   it 'reports its real type if you ask it' do 
     subject.__class__.must_equal exhibit_class
     assert !subject.__kind_of__?(model.class), "The subject should not __kind_of be the model."
     assert !subject.__is_a__?(model.class), "The subject should not __is_a be the model."
+    assert !subject.__instance_of__?(model.class), "The subject should not be __instance_of the model."
   end
 
   describe '.exhibit_query' do
