@@ -70,7 +70,7 @@ module DisplayCase
       # objects.
 
       # Note that '&' is the set intersection operator for Arrays.
-      (classes.map(&:to_s) & object.class.ancestors.map(&:name)).any?
+      (classes.map(&:to_s) & object.class.ancestors.map {|c| cls_name(c)}).any?
     end
     private_class_method :object_is_any_of?
 
@@ -121,6 +121,27 @@ module DisplayCase
     end
 
     private
+
+    # A simple memoizing class name tracker
+    class ClassNameTracker
+      def initialize
+        @data = Hash.new {|h, k| h[k] = k.name}
+      end
+
+      def name_for(kls)
+        @data[kls]
+      end
+    end
+
+    # holds a reference to the tracker
+    def self.class_name_tracker
+      @class_name_tracker ||= ClassNameTracker.new
+    end
+
+    # helper method for object_is_any_of to use
+    def self.cls_name(cls)
+      Exhibit.class_name_tracker.name_for(cls)
+    end
 
     # The terminator for the exhibit chain, and a marker that an object
     # has been through the exhibit process
