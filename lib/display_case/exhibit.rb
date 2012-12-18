@@ -60,18 +60,20 @@ module DisplayCase
     end
     private_class_method :exhibit_query
 
+    def self.class_comparator
+      @class_comparator ||= if Rails.config.cache_classes
+                              IsAClassComparator.new
+                            else
+                              NameClassComparator.new
+                            end
+    end
+
     # A helper for matching models to classes/modules, intended for use
     # in .applicable_to?.
     def self.object_is_any_of?(object, *classes)
-      # What with Rails development mode reloading making class matching
-      # unreliable, plus wanting to avoid adding dependencies to
-      # external class definitions if we can avoid it, we just match
-      # against class/module name strings rather than the actual class
-      # objects.
-
-      # Note that '&' is the set intersection operator for Arrays.
-      (classes.map(&:to_s) & object.class.ancestors.map(&:name)).any?
+      self.class.class_comparator.call(object, *classes)
     end
+
     private_class_method :object_is_any_of?
 
     attr_reader :context
