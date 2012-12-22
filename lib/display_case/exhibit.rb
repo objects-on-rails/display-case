@@ -2,6 +2,8 @@ require 'delegate'
 require 'active_support/core_ext'
 require 'display_case/railtie' if defined?(Rails)
 require_relative 'configuration'
+require_relative 'is_a_class_comparator'
+require_relative 'name_class_comparator'
 
 module DisplayCase
   class Exhibit < SimpleDelegator
@@ -61,10 +63,10 @@ module DisplayCase
     private_class_method :exhibit_query
 
     def self.class_comparator
-      @class_comparator ||= if defined?(Rails) && Rails.config.cache_classes
-                              IsAClassComparator.new
-                            else
+      @class_comparator ||= if defined?(Rails) && !Rails.config.cache_classes
                               NameClassComparator.new
+                            else
+                              IsAClassComparator.new
                             end
     end
 
