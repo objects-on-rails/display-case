@@ -61,7 +61,7 @@ module DisplayCase
     private_class_method :exhibit_query
 
     def self.class_comparator
-      @class_comparator ||= if Rails.config.cache_classes
+      @class_comparator ||= if defined?(Rails) && Rails.config.cache_classes
                               IsAClassComparator.new
                             else
                               NameClassComparator.new
@@ -71,7 +71,7 @@ module DisplayCase
     # A helper for matching models to classes/modules, intended for use
     # in .applicable_to?.
     def self.object_is_any_of?(object, *classes)
-      self.class.class_comparator.call(object, *classes)
+      self.class_comparator.call(object, *classes)
     end
 
     private_class_method :object_is_any_of?
