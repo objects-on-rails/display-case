@@ -4,7 +4,6 @@ require_relative 'class_comparator_shared_examples'
 module DisplayCase
   describe NameClassComparator do
     let(:comparator) { NameClassComparator.new }
-
-    it_should_behave_like 'a class comparator'
+    it_behaves_like 'a class comparator'
   end
 end
