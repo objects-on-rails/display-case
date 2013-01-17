@@ -1,6 +1,6 @@
 require 'delegate'
 require 'active_support/core_ext'
-require 'display_case/railtie' if defined?(Rails)
+require 'display_case/railtie' if defined?(::Rails)
 require_relative 'configuration'
 require_relative 'is_a_class_comparator'
 require_relative 'name_class_comparator'
@@ -23,17 +23,17 @@ module DisplayCase
 
     def self.exhibit(object, context=nil)
       return object if exhibited_object?(object)
-      if defined? Rails
-        Rails.logger.debug "Registered exhibits: #{@@exhibits}"
-        Rails.logger.debug "Exhibiting #{object.inspect}"
-        Rails.logger.debug "Exhibit context: #{context}"
+      if defined? ::Rails
+        ::Rails.logger.debug "Registered exhibits: #{@@exhibits}"
+        ::Rails.logger.debug "Exhibiting #{object.inspect}"
+        ::Rails.logger.debug "Exhibit context: #{context}"
       end
 
       object = BasicExhibit.new(Exhibited.new(object, context), context)
       exhibits.inject(object) do |object, exhibit_class|
         exhibit_class.exhibit_if_applicable(object, context)
       end.tap do |obj|
-        Rails.logger.debug "Exhibits applied: #{obj.inspect_exhibits}" if defined? Rails
+        ::Rails.logger.debug "Exhibits applied: #{obj.inspect_exhibits}" if defined? ::Rails
       end
     end
 
@@ -63,11 +63,16 @@ module DisplayCase
     private_class_method :exhibit_query
 
     def self.class_comparator
-      @class_comparator ||= if defined?(Rails) && !Rails.config.cache_classes
-                              NameClassComparator.new
-                            else
-                              IsAClassComparator.new
-                            end
+      @class_comparator ||= begin
+        comparator = nil
+
+        if defined? ::Rails
+          config = ::Rails.respond_to?(:config) ? ::Rails.config : ::Rails.application.config
+          comparator = NameClassComparator.new unless config.cache_classes
+        end
+
+        comparator || IsAClassComparator.new
+      end
     end
 
     # A helper for matching models to classes/modules, intended for use
