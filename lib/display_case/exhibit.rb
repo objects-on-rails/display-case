@@ -63,11 +63,11 @@ module DisplayCase
     private_class_method :exhibit_query
 
     def self.class_comparator
-      @class_comparator ||= if defined?(Rails) && !Rails.config.cache_classes
-                              NameClassComparator.new
-                            else
-                              IsAClassComparator.new
-                            end
+      @@class_comparator ||= if defined?(Rails) && !Rails.config.cache_classes
+                               NameClassComparator.new
+                             else
+                               IsAClassComparator.new
+                             end
     end
 
     # A helper for matching models to classes/modules, intended for use

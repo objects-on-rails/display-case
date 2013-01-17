@@ -26,6 +26,11 @@ describe DisplayCase::Exhibit do
     assert !subject.__is_a__?(model.class), "The subject should not __is_a be the model."
     assert !subject.__instance_of__?(model.class), "The subject should not be __instance_of the model."
   end
+  
+  it 'uses the same class comparator across subclasses of Exhibit' do
+    class StringExhibit < DisplayCase::Exhibit; end;
+    assert exhibit_class.class_comparator.object_id == StringExhibit.class_comparator.object_id
+  end
 
   describe '.exhibit_query' do
     it 'wraps the given methods so that their results are exhibited' do
