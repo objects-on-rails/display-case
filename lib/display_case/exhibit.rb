@@ -29,9 +29,10 @@ module DisplayCase
         ::Rails.logger.debug "Exhibit context: #{context}"
       end
 
+      similar, unsimilar = exhibits.partition { |exhibit_class| context and exhibit_class.name and context.class.name.downcase.include?(exhibit_class.name.to_s.downcase.gsub("exhibit", "")) }
       object = BasicExhibit.new(Exhibited.new(object, context), context)
-      exhibits.inject(object) do |object, exhibit_class|
-        exhibit_class.exhibit_if_applicable(object, context)
+      (unsimilar+similar).inject(object) do |object, exhibit_class|
+          exhibit_class.exhibit_if_applicable(object, context)
       end.tap do |obj|
         ::Rails.logger.debug "Exhibits applied: #{obj.inspect_exhibits}" if defined? ::Rails
       end
