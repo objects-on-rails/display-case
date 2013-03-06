@@ -32,7 +32,7 @@ describe "several exhibits" do
   it "should favor Exhibits with a similar name to the context" do
     TestCaseExhibit = new_exhibit
     stub(DisplayCase::Exhibit).exhibits { [TestCaseExhibit] + @exhibits }
-    smart_exhibited = DisplayCase::Exhibit.exhibit(model, Struct.new("TestCaseController"))
+    smart_exhibited = DisplayCase::Exhibit.exhibit(model, Struct.new("TestCaseController").new)
     smart_exhibited.exhibit_chain.first.name.must_equal "TestCaseExhibit"
   end
 
