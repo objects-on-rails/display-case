@@ -131,13 +131,6 @@ module DisplayCase
     end
 
     private
-    def __root_name__
-      if self.class.name
-
-      else
-
-      end
-    end
 
     # The terminator for the exhibit chain, and a marker that an object
     # has been through the exhibit process
