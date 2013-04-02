@@ -59,5 +59,11 @@ describe DisplayCase::Exhibit do
       mock(DisplayCase::Exhibit).exhibit(other_model, context){ result }
       subject.exhibit(other_model).must_be_same_as(result)
     end
+    
+    it 'works when passed a context instance of an anonymous class' do
+      anonymous   = Class.new.new
+      result      = DisplayCase::Exhibit.exhibit(model, anonymous)
+      DisplayCase::Exhibit.exhibited_object?(result).must_equal true
+    end
   end
 end
