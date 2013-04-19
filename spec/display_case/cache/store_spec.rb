@@ -37,7 +37,7 @@ module DisplayCase
       
         actual_time_difference = initial_timing - cached_timing
         
-        assert actual_time_difference > target_time_saved
+        assert_in_delta(target_time_saved, actual_time_difference, 0.5)
       ensure
         DisplayCase.configuration.cache_store = nil
       end
