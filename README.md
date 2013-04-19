@@ -112,6 +112,9 @@ class LeagueExhibit < DisplayCase::Exhibit
 end
 ```
 
+See [How key-based cache expiration works](http://37signals.com/svn/posts/3113-how-key-based-cache-expiration-works) for examples on
+how to choose good keys.
+
 Wrong url with extra parameters using an exhibited model?
 ------------------
 See this issue for the reason: https://github.com/objects-on-rails/display-case/issues/8
