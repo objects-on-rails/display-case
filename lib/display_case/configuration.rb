@@ -21,8 +21,7 @@ module DisplayCase
     # existing file will be loaded.
     attr_accessor :definition_file_paths
 
-    # A cache store which at a minimum, responds to #fetch, #write, #read, #exist?, 
-    # and #delete
+    # A cache store which responds to `fetch(key, options, &block)`
     attr_accessor :cache_store
 
     def initialize
