@@ -1,6 +1,7 @@
 require_relative '../../spec_helper_lite'
 require_relative '../../../lib/display_case'
 require_relative '../../fixtures/exhibits/blog_exhibit'
+require_relative 'store'
 
 module DisplayCase
   module Cache
@@ -9,7 +10,7 @@ module DisplayCase
       let(:stored_value) { "value" }
       let(:cache) { DisplayCase::Cache::Store.new }
 
-      it "can write and read an object" do 
+      it "can write and read an object" do
         assert_nil cache.read(key)
         cache.write(key, stored_value)        
         assert_equal stored_value, cache.read(key)
@@ -22,12 +23,12 @@ module DisplayCase
         assert_nil cache.read(key)
       end
       
-      it "can fetch a key" do 
+      it "can fetch a key" do
         cache.write(key, stored_value)        
         assert_equal stored_value, cache.fetch(key)
       end
       
-      it "can tell if a key exists" do 
+      it "can tell if a key exists" do
         assert !cache.exist?(key)
       end
     end

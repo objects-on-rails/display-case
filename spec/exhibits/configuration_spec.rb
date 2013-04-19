@@ -23,6 +23,8 @@ module DisplayCase
 
       it 'should allow you to set the cache store' do
         default_store = DisplayCase.configuration.cache_store
+        assert_nil default_store
+        
         DisplayCase.configure do |config|
           config.cache_store = DisplayCase::Cache::Store.new
         end

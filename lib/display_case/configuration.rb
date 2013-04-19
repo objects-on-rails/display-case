@@ -29,7 +29,7 @@ module DisplayCase
       @definition_file_paths = %w(app/exhibits)
       @explicit = false
       @exhibits = []
-      @cache_store = DisplayCase::Cache::Store.new
+      @cache_store = nil
     end
 
     def explicit?
