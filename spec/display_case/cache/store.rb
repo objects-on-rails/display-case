@@ -8,7 +8,12 @@ module DisplayCase
       def read(key)
         @store[key]
       end
-      alias :fetch :read
+      
+      def fetch(key, options={}, &block)
+        return read(key) if exist?(key)
+        write(key, yield)
+        read(key)
+      end
       
       def write(key, value)
         @store[key] = value
