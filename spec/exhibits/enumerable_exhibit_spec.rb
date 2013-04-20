@@ -80,8 +80,8 @@ describe DisplayCase::EnumerableExhibit do
   describe "#to_json" do 
     it "returns #as_json from elements in its collection" do
       subject.to_json.must_equal('["exhibit(e1)","exhibit(e2)","exhibit(e3)"]')
-      with_custom_as_json = subject.map.with_index{|m, i| m.define_singleton_method(:as_json){|opts={}| i }; m }
-      with_custom_as_json.to_json.must_equal("[0,1,2]")
+      with_custom_as_json = subject.map{|m| m.define_singleton_method(:as_json){|opts={}| 0 }; m }
+      with_custom_as_json.to_json.must_equal("[0,0,0]")
     end
   end
 
