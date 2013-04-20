@@ -76,6 +76,14 @@ describe DisplayCase::EnumerableExhibit do
       assert(subject.equal?(subject.to_ary))
     end
   end
+  
+  describe "#to_json" do 
+    it "returns #as_json from elements in its collection" do
+      subject.to_json.must_equal('["exhibit(e1)","exhibit(e2)","exhibit(e3)"]')
+      with_custom_as_json = subject.map.with_index{|m, i| m.define_singleton_method(:as_json){|opts={}| i }; m }
+      with_custom_as_json.to_json.must_equal("[0,1,2]")
+    end
+  end
 
   describe "#grep" do
     it "exhibits the result set" do

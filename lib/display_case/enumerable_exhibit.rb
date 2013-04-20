@@ -45,6 +45,11 @@ module DisplayCase
     def to_ary
       self
     end
+    
+    # See https://github.com/objects-on-rails/display-case/issues/27
+    def to_json
+      as_json.to_json
+    end
 
     def render(template)
       inject(ActiveSupport::SafeBuffer.new) { |output,element|
