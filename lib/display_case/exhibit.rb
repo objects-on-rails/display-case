@@ -129,6 +129,14 @@ module DisplayCase
     def exhibited?
       true
     end
+    
+    def cache(key, options = {}, &block)
+      if DisplayCase.configuration.cache_store
+        DisplayCase.configuration.cache_store.fetch(key, options, &block)
+      else
+        yield
+      end
+    end
 
     private
 

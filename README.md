@@ -32,8 +32,6 @@ Your exhibits will look something like this:
 # app/exhibits/league_exhibit.rb
 
 class LeagueExhibit < DisplayCase::Exhibit
-  # Note: the context parameter is new in the master branch, not yet released in the gem. 
-  # If you get an argument error, that's why
   def self.applicable_to?(object, context) 
     object.class.name == 'League'
   end
@@ -78,6 +76,7 @@ Several configuration options can be set via an initializer:
 1. `definition_file_paths` Because Rails lazily-loads files, in development mode DisplayCase will search /app/exhibits to load the Exhibits found there. If your Exhibits are elsewhere, you can set `config.definition_file_paths = ['list/of/directories', 'to/find/exhibits']` in your initializers/display_case.rb.
 1. `explicit` By default this option is false and Exhibits will be dynamically added via the inherited callback.
 1. `exhibits` If `explicit` is true you must explicitly set the Exhibits you wish to use in the order you want them evaluated. You can set `config.exhibits = [AnExhibit,AnotherExhibit]` in your initializers/display_case.rb.
+1. `cache_store` If you configure a cache store, you can use it by calling the `cache` method in your Exhibits (see below).
 
 An example `initializers/display_case.rb`
 ```
@@ -85,8 +84,36 @@ DisplayCase.configure do |config|
   config.definition_file_paths = ['app/exhibits','some/other/path']
   config.explicit = true
   config.exhibits = [MyFirstExhibit,MySecondExhibit]
+  config.cache_store = Rails.configuration.action_controller.perform_caching ? Rails.cache : nil
 end
 ```
+
+Caching
+-------
+You can cache the results of an operation in your exhibits by configuring DisplayCase to use a cache store, and then using the `cache` method.
+If you do this, you ought not use a real cache in development mode, since you'll likely want to see changes you're making to code, which of 
+course won't happen if you cache the results.
+
+Use the cache like you would in a Rails controller: 
+
+```ruby
+class LeagueExhibit < DisplayCase::Exhibit
+  def self.applicable_to?(object, context) 
+    object.class.name == 'League'
+  end
+  
+  def render(context)
+    cache key, options={} do 
+      # something that takes a long while, which might make you want 
+      # to cache this call to render
+      context.render(partial: 'leagues/icon', locals: {league: self})
+    end
+  end
+end
+```
+
+See [How key-based cache expiration works](http://37signals.com/svn/posts/3113-how-key-based-cache-expiration-works) for examples on
+how to choose good keys.
 
 Wrong url with extra parameters using an exhibited model?
 ------------------

@@ -20,6 +20,17 @@ module DisplayCase
         end
         assert_includes(Exhibit.exhibits, BlogExhibit)
       end
+
+      it 'should allow you to set the cache store' do
+        default_store = DisplayCase.configuration.cache_store
+        assert_nil default_store
+        
+        DisplayCase.configure do |config|
+          config.cache_store = DisplayCase::Cache::Store.new
+        end
+
+        refute_equal DisplayCase.configuration.cache_store, default_store
+      end
     end
   end
 end
