@@ -138,6 +138,10 @@ module DisplayCase
       "#{inspect_exhibits}(#{__getobj__.inspect})"
     end
 
+    def render(template)
+      template.render(:partial => to_partial_path, :object => self)
+    end
+
     def exhibited?
       true
     end
