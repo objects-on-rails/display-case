@@ -24,15 +24,23 @@ module DisplayCase
     # A cache store which responds to `fetch(key, options, &block)`
     attr_accessor :cache_store
 
+    # A boolean indicating whether or not to log to the Rails logger
+    attr_accessor :logging_enabled
+
     def initialize
       @definition_file_paths = %w(app/exhibits)
       @explicit = false
       @exhibits = []
       @cache_store = nil
+      @logging_enabled = true
     end
 
     def explicit?
       explicit
+    end
+
+    def logging_enabled?
+      defined? ::Rails and logging_enabled
     end
 
     def exhibits
