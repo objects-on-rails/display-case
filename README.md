@@ -9,7 +9,7 @@ If the Model is concerned with storing and manipulating business data, and the V
 
 The Exhibit object is so named because it is like a museum display case for an artifact or a work of art. It does not obscure any of the features of the object being presented. Rather, it tries to showcase the object in the best light to a human audience, while also presenting meta-information about the object and cross-references to other objects in the museum's collection.
 
-Technically, exhibit objects are a type of Decorator specialized for presenting models to an end user. 
+Technically, exhibit objects are a type of Decorator specialized for presenting models to an end user.
 
 For the purposes of clarity, here's a rundown of the essential characteristics of an Exhibit object.
 
@@ -32,10 +32,10 @@ Your exhibits will look something like this:
 # app/exhibits/league_exhibit.rb
 
 class LeagueExhibit < DisplayCase::Exhibit
-  def self.applicable_to?(object, context) 
+  def self.applicable_to?(object, context)
     object.class.name == 'League'
   end
-  
+
   def render_icon(template)
     template.render(partial: 'leagues/icon', locals: {league: self})
   end
@@ -49,11 +49,11 @@ class LeaguesController < ApplicationController
   include DisplayCase::ExhibitsHelper
   # ...
   def index
-    # display_case automatically wraps the individual objects contained in 
+    # display_case automatically wraps the individual objects contained in
     # an Enumerable or ActiveRecord::Relation collections
-    @leagues = exhibit(League.all) 
+    @leagues = exhibit(League.all)
   end
-  
+
   def show
     # of course it will also wrap your individual objects
     @league = exhibit(League.find(params[:id]))
@@ -64,7 +64,7 @@ end
 Finally, in your view, you can use your Exhibit:
 ```
 <!-- app/views/leagues/index.html.erb -->
-<% @leagues.each do |league| %> 
+<% @leagues.each do |league| %>
   <%= league.render_icon(self) %> <!-- self is this "template", the parameter to the method we defined in LeagueExhibit -->
 <% end %>
 ```
@@ -77,6 +77,7 @@ Several configuration options can be set via an initializer:
 1. `explicit` By default this option is false and Exhibits will be dynamically added via the inherited callback.
 1. `exhibits` If `explicit` is true you must explicitly set the Exhibits you wish to use in the order you want them evaluated. You can set `config.exhibits = [AnExhibit,AnotherExhibit]` in your initializers/display_case.rb.
 1. `cache_store` If you configure a cache store, you can use it by calling the `cache` method in your Exhibits (see below).
+1. `logging_enabled` Setting this to `true` will provide debug information about exhibits to the Rails logger, but may adversely affect performance when many objects are being exhibited.
 
 An example `initializers/display_case.rb`
 ```
@@ -85,26 +86,27 @@ DisplayCase.configure do |config|
   config.explicit = true
   config.exhibits = [MyFirstExhibit,MySecondExhibit]
   config.cache_store = Rails.configuration.action_controller.perform_caching ? Rails.cache : nil
+  config.logging_enabled = false
 end
 ```
 
 Caching
 -------
 You can cache the results of an operation in your exhibits by configuring DisplayCase to use a cache store, and then using the `cache` method.
-If you do this, you ought not use a real cache in development mode, since you'll likely want to see changes you're making to code, which of 
+If you do this, you ought not use a real cache in development mode, since you'll likely want to see changes you're making to code, which of
 course won't happen if you cache the results.
 
-Use the cache like you would in a Rails controller: 
+Use the cache like you would in a Rails controller:
 
 ```ruby
 class LeagueExhibit < DisplayCase::Exhibit
-  def self.applicable_to?(object, context) 
+  def self.applicable_to?(object, context)
     object.class.name == 'League'
   end
-  
+
   def render(context)
-    cache key, options={} do 
-      # something that takes a long while, which might make you want 
+    cache key, options={} do
+      # something that takes a long while, which might make you want
       # to cache this call to render
       context.render(partial: 'leagues/icon', locals: {league: self})
     end
