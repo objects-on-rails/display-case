@@ -32,7 +32,7 @@ module DisplayCase
       @explicit = false
       @exhibits = []
       @cache_store = nil
-      @logging_enabled = true
+      @logging_enabled = false
     end
 
     def explicit?
