@@ -23,7 +23,7 @@ module DisplayCase
 
     def self.exhibit(object, context=nil)
       return object if exhibited_object?(object)
-      if defined? ::Rails
+      if DisplayCase.configuration.logging_enabled?
         ::Rails.logger.debug "Registered exhibits: #{@@exhibits}"
         ::Rails.logger.debug "Exhibiting #{object.inspect}"
         ::Rails.logger.debug "Exhibit context: #{context}"
@@ -34,7 +34,7 @@ module DisplayCase
       (unsimilar+similar).inject(object) do |object, exhibit_class|
           exhibit_class.exhibit_if_applicable(object, context)
       end.tap do |obj|
-        ::Rails.logger.debug "Exhibits applied: #{obj.inspect_exhibits}" if defined? ::Rails
+        ::Rails.logger.debug "Exhibits applied: #{obj.inspect_exhibits}" if DisplayCase.configuration.logging_enabled?
       end
     end
 

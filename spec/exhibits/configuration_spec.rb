@@ -24,12 +24,22 @@ module DisplayCase
       it 'should allow you to set the cache store' do
         default_store = DisplayCase.configuration.cache_store
         assert_nil default_store
-        
+
         DisplayCase.configure do |config|
           config.cache_store = DisplayCase::Cache::Store.new
         end
 
         refute_equal DisplayCase.configuration.cache_store, default_store
+      end
+
+      it 'allows you to set whether you want logging to be enabled' do
+        refute DisplayCase.configuration.logging_enabled
+
+        DisplayCase.configure do |config|
+          config.logging_enabled = true
+        end
+
+        assert DisplayCase.configuration.logging_enabled
       end
     end
   end
