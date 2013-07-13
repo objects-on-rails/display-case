@@ -29,14 +29,26 @@ module DisplayCase
         ::Rails.logger.debug "Exhibit context: #{context}"
       end
 
-      similar, unsimilar = exhibits.partition { |exhibit_class| context and exhibit_class.name and context.class.name and context.class.name.downcase.include?(exhibit_class.name.to_s.downcase.gsub("exhibit", "")) }
       object = BasicExhibit.new(Exhibited.new(object, context), context)
-      (unsimilar+similar).inject(object) do |object, exhibit_class|
-          exhibit_class.exhibit_if_applicable(object, context)
+      similar, unsimilar = partition_by_name(exhibits, context)
+
+      # done w/ unsimilar first since the last applied exhibit is the top-most one
+      (unsimilar + similar).inject(object) do |object, exhibit_class|
+        exhibit_class.exhibit_if_applicable(object, context)
       end.tap do |obj|
         ::Rails.logger.debug "Exhibits applied: #{obj.inspect_exhibits}" if DisplayCase.configuration.logging_enabled?
       end
     end
+
+    def self.partition_by_name(exhibits, context=nil)
+      return [], exhibits if DisplayCase.configuration.explicit? || context.nil? || context.class.name.nil?
+
+      exhibits.partition do |exhibit_class|
+        exhibit_name = exhibit_class.name.to_s.downcase.gsub("exhibit", "")
+        exhibit_name.length > 0 && context.class.name.downcase.include?(exhibit_name)
+      end
+    end
+    private_class_method :partition_by_name
 
     def self.exhibit_if_applicable(object, context)
       if applicable_to?(object, context)

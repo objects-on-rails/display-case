@@ -29,13 +29,6 @@ describe "several exhibits" do
     @exhibited.exhibit_chain.must_include DisplayCase::BasicExhibit
   end
 
-  it "should favor Exhibits with a similar name to the context" do
-    TestCaseExhibit = new_exhibit
-    stub(DisplayCase::Exhibit).exhibits { [TestCaseExhibit] + @exhibits }
-    smart_exhibited = DisplayCase::Exhibit.exhibit(model, Struct.new("TestCaseController").new)
-    smart_exhibited.exhibit_chain.first.name.must_equal "TestCaseExhibit"
-  end
-
   private
   def new_exhibit
     Class.new(DisplayCase::Exhibit) { def self.applicable_to?(*args); true; end }
