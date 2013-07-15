@@ -107,15 +107,15 @@ module DisplayCase
     def class
       __getobj__.class
     end
-    
+
     alias_method :__kind_of__?, :kind_of?
     def kind_of?(klass)
       __getobj__.kind_of?(klass)
     end
-    
+
     alias_method :__is_a__?, :is_a?
     alias_method :is_a?, :kind_of?
-    
+
     alias_method :__instance_of__?, :instance_of?
     def instance_of?(klass)
       __getobj__.instance_of?(klass)
@@ -141,7 +141,7 @@ module DisplayCase
     def exhibited?
       true
     end
-    
+
     def cache(key, options = {}, &block)
       if DisplayCase.configuration.cache_store
         DisplayCase.configuration.cache_store.fetch(key, options, &block)
