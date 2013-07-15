@@ -7,7 +7,26 @@ module DisplayCase
   class NameClassComparator
     def call(object, *classes)
       # Note that '&' is the set intersection operator for Arrays.
-      (classes.map(&:to_s) & object.class.ancestors.map(&:name)).any?
+      (classes.map(&:to_s) & object.class.ancestors.map {|c| name_for(c)}).any?
+    end
+
+    private
+    class ClassNameTracker
+      def initialize
+        @data = Hash.new {|h, k| h[k] = k.name}
+      end
+
+      def name_for(kls)
+        @data[kls]
+      end
+    end
+
+    def class_name_tracker
+      @class_name_tracker ||= ClassNameTracker.new
+    end
+
+    def name_for(cls)
+      class_name_tracker.name_for(cls)
     end
   end
 end
