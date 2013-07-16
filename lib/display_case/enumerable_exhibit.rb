@@ -7,7 +7,7 @@ module DisplayCase
     def self.applicable_to?(object, context=nil)
       # ActiveRecord::Relation, surprisingly, is not Enumerable. But it
       # behaves sufficiently similarly for our purposes.
-      object_is_any_of?(object, 'Enumerable', 'ActiveRecord::Relation')
+      object.respond_to?(:each)
     end
 
     # Wrap an Enumerable method which returns another collection
@@ -45,7 +45,7 @@ module DisplayCase
     def to_ary
       self
     end
-    
+
     # See https://github.com/objects-on-rails/display-case/issues/27
     def to_json
       as_json.to_json
