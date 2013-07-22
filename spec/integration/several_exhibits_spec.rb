@@ -19,7 +19,7 @@ describe "several exhibits" do
   end
 
   it "should correctly send #render messages to exhibits" do
-    mock.instance_of(first_exhibit).render.with_any_args
+    mock.instance_of(second_exhibit).render.with_any_args
     context = stub!
 
     @exhibited.render(context)

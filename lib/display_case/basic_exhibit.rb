@@ -9,10 +9,6 @@ module DisplayCase
         partialize_name(__getobj__.class.name)
       end
     end
-
-    def render(template)
-      template.render(:partial => to_partial_path, :object => self)
-    end
   end
 end
 
