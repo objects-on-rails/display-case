@@ -28,7 +28,7 @@ module DisplayCase
     attr_accessor :logging_enabled
 
     # A boolean indicating whether Exhibits with names that are similar to
-    # context should be favored over otehr exhibits. By default, this is true
+    # context should be favored over other exhibits. By default, this is true
     attr_accessor :smart_matching
 
     def initialize

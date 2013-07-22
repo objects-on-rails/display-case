@@ -78,6 +78,7 @@ Several configuration options can be set via an initializer:
 1. `exhibits` If `explicit` is true you must explicitly set the Exhibits you wish to use in the order you want them evaluated. You can set `config.exhibits = [AnExhibit,AnotherExhibit]` in your initializers/display_case.rb.
 1. `cache_store` If you configure a cache store, you can use it by calling the `cache` method in your Exhibits (see below).
 1. `logging_enabled` Setting this to `true` will provide debug information about exhibits to the Rails logger, but may adversely affect performance when many objects are being exhibited.
+1. `smart_matching`  A boolean indicating whether Exhibits with names that are similar to context should be favored over other exhibits. By default, this is true.
 
 An example `initializers/display_case.rb`
 ```
