@@ -30,10 +30,9 @@ module DisplayCase
       end
 
       object = BasicExhibit.new(Exhibited.new(object, context), context)
-      similar, unsimilar = partition_by_name(exhibits, context)
 
       # done w/ unsimilar first since the last applied exhibit is the top-most one
-      (unsimilar + similar).inject(object) do |object, exhibit_class|
+      sorted_exhibits(context).inject(object) do |object, exhibit_class|
         exhibit_class.exhibit_if_applicable(object, context)
       end.tap do |obj|
         ::Rails.logger.debug "Exhibits applied: #{obj.inspect_exhibits}" if DisplayCase.configuration.logging_enabled?
@@ -41,14 +40,27 @@ module DisplayCase
     end
 
     def self.partition_by_name(exhibits, context=nil)
-      return [], exhibits if DisplayCase.configuration.explicit? || context.nil? || context.class.name.nil?
-
       exhibits.partition do |exhibit_class|
         exhibit_name = exhibit_class.name.to_s.downcase.gsub("exhibit", "")
         exhibit_name.length > 0 && context.class.name.downcase.include?(exhibit_name)
       end
     end
     private_class_method :partition_by_name
+
+    def self.sorted_exhibits(context)
+      if smart_matching?(context)
+        similar, unsimilar = partition_by_name(exhibits, context)
+        unsimilar + similar
+      else
+        exhibits
+      end
+    end
+    private_class_method :sorted_exhibits
+
+    def self.smart_matching?(context)
+      DisplayCase.configuration.smart_matching? && !(DisplayCase.configuration.explicit? || context.nil? || context.class.name.nil?)
+    end
+    private_class_method :smart_matching?
 
     def self.exhibit_if_applicable(object, context)
       if applicable_to?(object, context)
@@ -136,6 +148,10 @@ module DisplayCase
 
     def inspect
       "#{inspect_exhibits}(#{__getobj__.inspect})"
+    end
+
+    def render(template)
+      template.render(:partial => to_partial_path, :object => self)
     end
 
     def exhibited?

@@ -27,9 +27,28 @@ describe DisplayCase::Exhibit do
     assert !subject.__instance_of__?(model.class), "The subject should not be __instance_of the model."
   end
   
-  it 'uses the same class comparator across subclasses of Exhibit' do
+  it 'eses the same class comparator across subclasses of Exhibit' do
     class StringExhibit < DisplayCase::Exhibit; end;
     assert exhibit_class.class_comparator.object_id == StringExhibit.class_comparator.object_id
+  end
+
+  it "#render'ing uses the models partial path and passes self" do
+    class TestPartialExhibit < DisplayCase::Exhibit
+      def self.applicable_to?(*)
+        true
+      end
+
+      def to_partial_path
+        'a partial'
+      end
+    end
+
+    result = DisplayCase::Exhibit.exhibit(model, context)
+    template = Object.new
+
+    mock(template).render(:partial => 'a partial', :object => result) { :rendered_result }
+
+    result.render(template).must_equal :rendered_result
   end
 
   describe '.exhibit_query' do
@@ -53,13 +72,13 @@ describe DisplayCase::Exhibit do
   end
 
   describe '#exhibit' do
-    it 'calls Exhibt.exhibit with current context and model' do
+    it 'calls Exhibit.exhibit with current context and model' do
       result      = Object.new
       other_model = Object.new
       mock(DisplayCase::Exhibit).exhibit(other_model, context){ result }
       subject.exhibit(other_model).must_be_same_as(result)
     end
-    
+
     it 'works when passed a context instance of an anonymous class' do
       anonymous   = Class.new.new
       result      = DisplayCase::Exhibit.exhibit(model, anonymous)
