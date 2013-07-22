@@ -27,16 +27,25 @@ module DisplayCase
     # A boolean indicating whether or not to log to the Rails logger
     attr_accessor :logging_enabled
 
+    # A boolean indicating whether Exhibits with names that are similar to
+    # context should be favored over otehr exhibits. By default, this is true
+    attr_accessor :smart_matching
+
     def initialize
       @definition_file_paths = %w(app/exhibits)
       @explicit = false
       @exhibits = []
       @cache_store = nil
       @logging_enabled = false
+      @smart_matching = true
     end
 
     def explicit?
       explicit
+    end
+
+    def smart_matching?
+      smart_matching
     end
 
     def logging_enabled?
