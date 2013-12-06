@@ -76,8 +76,8 @@ describe DisplayCase::EnumerableExhibit do
       assert(subject.equal?(subject.to_ary))
     end
   end
-  
-  describe "#to_json" do 
+
+  describe "#to_json" do
     it "returns #as_json from elements in its collection" do
       subject.to_json.must_equal('["exhibit(e1)","exhibit(e2)","exhibit(e3)"]')
       with_custom_as_json = subject.map{|m| m.define_singleton_method(:as_json){|opts={}| 0 }; m }
@@ -125,6 +125,12 @@ describe DisplayCase::EnumerableExhibit do
   describe "#last" do
     it "exhibits the result" do
       subject.last.must_equal("exhibit(e3)")
+    end
+  end
+
+  describe "#pop" do
+    it "exhibits the result" do
+      subject.pop.must_equal("exhibit(e3)")
     end
   end
 
