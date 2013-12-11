@@ -22,7 +22,7 @@ module DisplayCase
     end
     private_class_method :exhibit_enum
 
-    exhibit_query :[], :fetch, :slice, :values_at, :last
+    exhibit_query :[], :fetch, :slice, :values_at, :last, :pop
     exhibit_enum :select, :grep, :reject, :to_enum, :sort, :sort_by, :reverse
     exhibit_enum :partition do |result|
       result.map{|group| exhibit(group)}
