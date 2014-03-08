@@ -150,8 +150,8 @@ module DisplayCase
       "#{inspect_exhibits}(#{__getobj__.inspect})"
     end
 
-    def render(template)
-      template.render(:partial => to_partial_path, :object => self)
+    def render(template, options = {})
+      template.render(options.reverse_merge(:partial => to_partial_path, :object => self))
     end
 
     def exhibited?
