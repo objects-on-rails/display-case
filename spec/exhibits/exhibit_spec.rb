@@ -46,9 +46,9 @@ describe DisplayCase::Exhibit do
     result = DisplayCase::Exhibit.exhibit(model, context)
     template = Object.new
 
-    mock(template).render(:partial => 'a partial', :object => result) { :rendered_result }
+    mock(template).render(:partial => 'a partial', :object => result, a: 1) { :rendered_result }
 
-    result.render(template).must_equal :rendered_result
+    result.render(template, {a: 1}).must_equal :rendered_result
   end
 
   describe '.exhibit_query' do

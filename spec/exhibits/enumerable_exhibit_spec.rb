@@ -215,14 +215,14 @@ describe DisplayCase::EnumerableExhibit do
     before do
       stub(subject).exhibit{|object| object}
       model.each do |e|
-        stub(e).render{ "R(#{e})" }
+        mock(e).render(template, {a: 1}){ "R(#{e})" }
       end
     end
     it "concatenates the rendered elements" do
-      subject.render(template).must_equal("R(e1)R(e2)R(e3)")
+      subject.render(template, {a: 1}).must_equal("R(e1)R(e2)R(e3)")
     end
     it "produces a safe string" do
-      assert(subject.render(template).html_safe?)
+      assert(subject.render(template, {a: 1}).html_safe?)
     end
   end
 
