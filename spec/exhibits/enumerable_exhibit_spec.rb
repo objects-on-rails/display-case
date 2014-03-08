@@ -72,8 +72,8 @@ describe DisplayCase::EnumerableExhibit do
   end
 
   describe "#to_ary" do
-    it "returns itself" do
-      assert(subject.equal?(subject.to_ary))
+    it "returns an array of itself" do
+      assert(subject.to_ary == subject.to_a)
     end
   end
 

@@ -43,7 +43,7 @@ module DisplayCase
     # `render '...', :collection => self` will call #to_ary on this
     # before rendering, so we need to be prepared.
     def to_ary
-      self
+      self.to_a
     end
 
     # See https://github.com/objects-on-rails/display-case/issues/27
