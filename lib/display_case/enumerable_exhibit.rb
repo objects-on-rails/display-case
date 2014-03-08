@@ -51,9 +51,9 @@ module DisplayCase
       as_json.to_json
     end
 
-    def render(template)
+    def render(template, options = {})
       inject(ActiveSupport::SafeBuffer.new) { |output,element|
-        output << element.render(template)
+        output << element.render(template, options)
       }
     end
 
