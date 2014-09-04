@@ -137,6 +137,10 @@ module DisplayCase
       Exhibit.exhibit(model, context)
     end
 
+    def reexhibit
+      exhibit(to_model)
+    end
+
     def exhibit_chain
       inner_exhibits = __getobj__.respond_to?(:exhibit_chain) ? __getobj__.exhibit_chain : []
       [__class__] + inner_exhibits
