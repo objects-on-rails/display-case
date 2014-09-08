@@ -37,7 +37,17 @@ class LeagueExhibit < DisplayCase::Exhibit
   end
 
   def render_icon(template)
-    template.render(partial: 'leagues/icon', locals: {league: self})
+    # Use `object` local variable in partial to refer back to the exhibited
+    # object
+    render(template, partial: 'leagues/icon')
+
+    # OR
+
+    # Specify a local variable and "reexhibit" the model associated with `self`.
+    # Using `exhibit(to_model)` ensures that `league`'s exhibit chain includes
+    # all possible exhibit objects instead of just `self` (or LeagueExhibit,
+    # in this example).
+    render(template, partial: 'leagues/icon', locals: { league: exhibit(to_model) })
   end
 end
 ```
@@ -68,6 +78,8 @@ Finally, in your view, you can use your Exhibit:
   <%= league.render_icon(self) %> <!-- self is this "template", the parameter to the method we defined in LeagueExhibit -->
 <% end %>
 ```
+
+Note: See [#51](https://github.com/objects-on-rails/display-case/pull/51) for more on the need for `exhibit(to_model)` when rendering a partial from an exhibit.
 
 Configuration
 -------------
