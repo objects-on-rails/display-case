@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 
-## Unreleased
+## 0.1.1 - 2014-09-10
 ### Added
 - Change log (this file) (see: http://keepachangelog.com/)
 
