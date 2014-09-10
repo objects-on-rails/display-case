@@ -32,7 +32,7 @@ describe DisplayCase::Exhibit do
     assert exhibit_class.class_comparator.object_id == StringExhibit.class_comparator.object_id
   end
 
-  it "#render'ing uses the models partial path and passes self" do
+  it "#render'ing uses the models partial path and passes exhibited self.to_model" do
     class TestPartialExhibit < DisplayCase::Exhibit
       def self.applicable_to?(*)
         true
@@ -43,12 +43,13 @@ describe DisplayCase::Exhibit do
       end
     end
 
-    result = DisplayCase::Exhibit.exhibit(model, context)
+    the_exhibit = DisplayCase::Exhibit.exhibit(model, context)
+    result = the_exhibit.exhibit(the_exhibit.to_model)
     template = Object.new
 
-    mock(template).render(:partial => 'a partial', :object => result, a: 1) { :rendered_result }
+    mock(template).render(partial: 'a partial', object: result, a: 1) { :rendered_result }
 
-    result.render(template, {a: 1}).must_equal :rendered_result
+    result.render(template, {a: 1, object: result}).must_equal :rendered_result
   end
 
   describe '.exhibit_query' do
