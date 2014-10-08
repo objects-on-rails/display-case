@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 0.1.2 - 2014-10-08
+### Fixed
+- [#50](https://github.com/objects-on-rails/display-case/issues/50): Will now re-load only those exhibits that have changed (by @codeodor)
 
 ## 0.1.1 - 2014-09-10
 ### Added
