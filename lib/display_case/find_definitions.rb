@@ -19,8 +19,18 @@ module DisplayCase
   def self.display_case_load(file)
     @file_changes ||= {}
     if File.exists?(file) && (@file_changes[file].to_i < (mtime = File.mtime(file).to_i))
-      load file
-      @file_changes[file] = mtime
+      begin
+        load file
+        @file_changes[file] = mtime
+      rescue TypeError
+        klass = $!.message.gsub("superclass mismatch for class ", "").constantize
+        if klass.ancestors.include?(DisplayCase::Exhibit)
+          Object.send(:remove_const, klass.name.to_sym)
+          retry
+        else
+          raise $!
+        end
+      end
     end
   end
 end
