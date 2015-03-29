@@ -24,7 +24,7 @@ module DisplayCase
         @file_changes[file] = mtime
       rescue TypeError
         klass = $!.message.gsub("superclass mismatch for class ", "").constantize
-        if klass.ancestors.include?(DisplayCase::Exhibit)
+        if klass.ancestors.include?(DisplayCase::Exhibit) && configuration.swallow_superclass_mismatch_for_exhibits?
           Object.send(:remove_const, klass.name.to_sym)
           retry
         else
