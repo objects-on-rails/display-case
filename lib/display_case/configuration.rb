@@ -30,6 +30,10 @@ module DisplayCase
     # A boolean indicating whether Exhibits with names that are similar to
     # context should be favored over other exhibits. By default, this is true
     attr_accessor :smart_matching
+    
+    # A boolean indicating whether DisplayCase will swallow superclass mismatch
+    # errors (see README for more info). By default, this is false.
+    attr_accessor :swallow_superclass_mismatch_for_exhibits
 
     def initialize
       @definition_file_paths = %w(app/exhibits)
@@ -38,6 +42,7 @@ module DisplayCase
       @cache_store = nil
       @logging_enabled = false
       @smart_matching = true
+      @swallow_superclass_mismatch_for_exhibits = false
     end
 
     def explicit?
@@ -46,6 +51,10 @@ module DisplayCase
 
     def smart_matching?
       smart_matching
+    end
+    
+    def swallow_superclass_mismatch_for_exhibits?
+      swallow_superclass_mismatch_for_exhibits
     end
 
     def logging_enabled?

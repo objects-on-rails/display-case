@@ -133,3 +133,25 @@ how to choose good keys.
 Wrong url with extra parameters using an exhibited model?
 ------------------
 See this issue for the reason: https://github.com/objects-on-rails/display-case/issues/8
+
+
+TypeError: superclass mismatch for class MyExhibit
+------------------
+This error is common in development mode in code bases which `ExhibitB` inherits from `ExhibitA`, which inherits from `DisplayCase::Exhibit`. 
+DisplayCase is doing a lot of messing around with your exhibits to make them respond appropriately as if they were the object you're exhibiting,
+and that is _normally_ the cause of this error if you're using inheritance among exhibits.
+
+However, since it's possible you could actually be inadvertently having a superclass mismatch, the recommended way around this error is to avoid 
+the situation.
+
+In case you're having this error, and you're confident that is _not_ happening, we do provide a configuration option to catch this 
+error and reload the class anyway. :warning: But be warned, if it is a legitimate superclass mismatch, you won't catch it with 
+this option turned on! :warning:
+
+To turn on this option, in your DisplayCase initializer:
+
+```ruby
+DisplayCase.configure do |config|
+  config.swallow_superclass_mismatch_for_exhibits = true
+end
+```
