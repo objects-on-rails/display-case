@@ -47,8 +47,8 @@ module DisplayCase
     end
 
     # See https://github.com/objects-on-rails/display-case/issues/27
-    def to_json
-      as_json.to_json
+    def to_json(*args)
+      as_json(*args).to_json(*args)
     end
 
     def render(template, options = {})
