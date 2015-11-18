@@ -1,5 +1,3 @@
-require_relative 'enumerable_exhibit'
-
 module DisplayCase
   class << self
     attr_accessor :configuration
@@ -30,7 +28,7 @@ module DisplayCase
     # A boolean indicating whether Exhibits with names that are similar to
     # context should be favored over other exhibits. By default, this is true
     attr_accessor :smart_matching
-    
+
     # A boolean indicating whether DisplayCase will swallow superclass mismatch
     # errors (see README for more info). By default, this is false.
     attr_accessor :swallow_superclass_mismatch_for_exhibits
@@ -52,7 +50,7 @@ module DisplayCase
     def smart_matching?
       smart_matching
     end
-    
+
     def swallow_superclass_mismatch_for_exhibits?
       swallow_superclass_mismatch_for_exhibits
     end
@@ -67,6 +65,8 @@ module DisplayCase
 
     def exhibits=(val)
       @exhibits = Array(val)
+      DisplayCase::Exhibit.initialize_exhibits
+      @exhibits
     end
   end
 

@@ -1,5 +1,4 @@
 module DisplayCase
-
   def self.find_definitions
     absolute_definition_file_paths = configuration.definition_file_paths.map {|path| File.expand_path(path) }
 
