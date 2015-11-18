@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'display_case'
-  s.version     = '0.2.1'
-  s.date        = '2015-04-23'
+  s.version     = '0.2.2'
+  s.date        = '2015-11-18'
   s.summary     = "An implementation of the Exhibit pattern, as described in Objects on Rails"
   s.description = "An implementation of the Exhibit pattern, as described in Objects on Rails"
   s.authors     = ["Avdi Grimm"]
