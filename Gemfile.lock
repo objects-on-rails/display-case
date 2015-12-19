@@ -33,7 +33,11 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-nulldb-adapter!
+  bundler (= 1.11.2)
   json-jruby
   minitest (~> 2.12.0)
   rake
   rr
+
+BUNDLED WITH
+   1.11.2
