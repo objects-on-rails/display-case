@@ -40,11 +40,15 @@ describe "reloading exhibits" do
   private
   def change_exhibit_file
     contents = File.read(exhibit_file)
-    File.write(exhibit_file, contents.gsub('"unchanged"','"changedit"'))
+    File.open(exhibit_file, 'w') do |f|
+      f.write contents.gsub('"unchanged"','"changedit"')
+    end
   end
 
   def restore_exhibit_file
     contents = File.read(exhibit_file)
-    File.write(exhibit_file, contents.gsub('"changedit"','"unchanged"'))
+    File.open(exhibit_file, 'w') do |f|
+      f.write contents.gsub('"changedit"','"unchanged"')
+    end
   end
 end
