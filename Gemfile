@@ -5,4 +5,5 @@ group :development, :test do
   gem 'activerecord-nulldb-adapter', :git => "git://github.com/nulldb/nulldb.git"
   gem 'rake'
   gem 'json-jruby', :platform => :jruby
+  gem 'bundler', '1.11.2'
 end

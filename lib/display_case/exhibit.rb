@@ -7,18 +7,22 @@ require_relative 'name_class_comparator'
 
 module DisplayCase
   class Exhibit < SimpleDelegator
-    @@exhibits = []
+    def self.initialize_exhibits
+      @@exhibits = []
+      @@exhibits = DisplayCase.configuration.exhibits.dup if DisplayCase.configuration.explicit?
+    end
+    initialize_exhibits
 
     def self.exhibits
-      if DisplayCase.configuration.explicit?
-        DisplayCase.configuration.exhibits
-      else
-        @@exhibits
-      end
+      @@exhibits
     end
 
     def self.inherited(child)
-      @@exhibits << child
+      if idx = @@exhibits.map(&:name).index(child.name)
+        @@exhibits[idx] = child
+      elsif !DisplayCase.configuration.explicit?
+        @@exhibits << child
+      end
     end
 
     def self.exhibit(object, context=nil)
