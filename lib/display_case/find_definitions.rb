@@ -24,12 +24,17 @@ module DisplayCase
       rescue TypeError => error
         klass = find_class_candidates(error.message).first # TODO: Is there a way to make this work correctly if there are multiple candidates?
         if klass.ancestors.include?(DisplayCase::Exhibit) && configuration.swallow_superclass_mismatch_for_exhibits?
-          namespace = if klass.name.index('::')
-                        klass.name.split('::')[0..-1].constantize
-                      else
-                        Object
-                      end
-          namespace.send(:remove_const, klass.name.to_sym)
+          delimiter = '::'
+          namespace, klass_name =
+            if klass.name.index(delimiter)
+              klass_names = klass.name.split(delimiter)
+              namespace_name = klass_names[0..-2].join(delimiter).constantize
+              klass_name = klass_names.last
+              [namespace_name, klass_name]
+            else
+              [Object, klass.name]
+            end
+          namespace.send(:remove_const, klass_name.to_sym)
           retry
         else
           raise error
