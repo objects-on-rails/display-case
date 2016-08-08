@@ -42,6 +42,6 @@ module DisplayCase
     klass_name = error_message.gsub("superclass mismatch for class ", "")
     [klass_name.constantize]
   rescue NameError
-    ObjectSpace.each_object(Class).select{|c| c.name.to_s.split('::').last == klass_name}
+    ObjectSpace.each_object(Class).select{|c| c.to_s.split('::').last == klass_name}
   end
 end
