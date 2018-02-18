@@ -7,10 +7,10 @@ describe LinkExhibit do
     @next = Object.new
     @prev = Object.new
     @up   = Object.new
-    @model = OpenStruct.new(
-      :next => @next,
-      prev:   @prev,
-      up:     @up)
+    @model = Object.new
+    stub(@model).next{ @next }
+    stub(@model).prev{ @prev }
+    stub(@model).up{ @up }
     stub(@model).serializable_hash{{model_data: "MODEL_DATA"}}
     @context = Object.new
     @it = LinkExhibit.new(@model, @context)
