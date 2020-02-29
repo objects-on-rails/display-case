@@ -26,7 +26,7 @@ GEM
       concurrent-ruby (~> 1.0)
     minitest (2.12.1)
     multi_json (1.13.1)
-    rake (12.3.0)
+    rake (13.0.1)
     rr (1.2.1)
     tzinfo (0.3.53)
 
