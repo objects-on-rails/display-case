@@ -1,44 +1,46 @@
 GIT
   remote: git://github.com/nulldb/nulldb.git
-  revision: c1ea80269ea0cce69ef33f21a311a83eb3a5a742
+  revision: a3c63447345c5dab26864af55930e1cbbee066d9
   specs:
-    activerecord-nulldb-adapter (0.3.8)
+    activerecord-nulldb-adapter (0.4.0)
       activerecord (>= 2.0.0)
 
 GEM
   remote: http://rubygems.org/
   specs:
-    activemodel (3.2.22.5)
-      activesupport (= 3.2.22.5)
-      builder (~> 3.0.0)
-    activerecord (3.2.22.5)
-      activemodel (= 3.2.22.5)
-      activesupport (= 3.2.22.5)
-      arel (~> 3.0.2)
-      tzinfo (~> 0.3.29)
-    activesupport (3.2.22.5)
-      i18n (~> 0.6, >= 0.6.4)
-      multi_json (~> 1.0)
-    arel (3.0.3)
-    builder (3.0.4)
-    concurrent-ruby (1.0.5)
-    i18n (0.9.5)
+    activemodel (6.0.3)
+      activesupport (= 6.0.3)
+    activerecord (6.0.3)
+      activemodel (= 6.0.3)
+      activesupport (= 6.0.3)
+    activesupport (6.0.3)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (>= 0.7, < 2)
+      minitest (~> 5.1)
+      tzinfo (~> 1.1)
+      zeitwerk (~> 2.2, >= 2.2.2)
+    concurrent-ruby (1.1.6)
+    i18n (1.8.2)
       concurrent-ruby (~> 1.0)
-    minitest (2.12.1)
-    multi_json (1.13.1)
+    minitest (5.14.0)
     rake (13.0.1)
     rr (1.2.1)
-    tzinfo (0.3.53)
+    thread_safe (0.3.6)
+    tzinfo (1.2.7)
+      thread_safe (~> 0.1)
+    zeitwerk (2.3.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord
   activerecord-nulldb-adapter!
+  activesupport
   json-jruby
-  minitest (~> 2.12.0)
+  minitest
   rake
   rr
 
 BUNDLED WITH
-   1.16.1
+   1.17.2
