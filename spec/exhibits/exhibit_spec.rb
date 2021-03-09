@@ -7,6 +7,8 @@ describe DisplayCase::Exhibit do
   let(:model)         { Object.new }
   let(:context)       { Object.new }
 
+  DisplayCase.configuration.explicit = false
+
   it 'registers child Exhibits when inherited' do
     class TestExhibit < DisplayCase::Exhibit; end
     DisplayCase::Exhibit.exhibits.include?(TestExhibit).must_equal true
@@ -19,14 +21,14 @@ describe DisplayCase::Exhibit do
     assert subject.is_a?(model.class), "The subject class (#{subject.class}) is not is_a? the model class (#{model.class})."
     assert subject.instance_of?(model.class), "The subject class (#{subject.class}) is not an instance_of? the model class (#{model.class})."
   end
-  
-  it 'reports its real type if you ask it' do 
+
+  it 'reports its real type if you ask it' do
     subject.__class__.must_equal exhibit_class
     assert !subject.__kind_of__?(model.class), "The subject should not __kind_of be the model."
     assert !subject.__is_a__?(model.class), "The subject should not __is_a be the model."
     assert !subject.__instance_of__?(model.class), "The subject should not be __instance_of the model."
   end
-  
+
   it 'uses the same class comparator across subclasses of Exhibit' do
     class StringExhibit < DisplayCase::Exhibit; end;
     assert exhibit_class.class_comparator.object_id == StringExhibit.class_comparator.object_id

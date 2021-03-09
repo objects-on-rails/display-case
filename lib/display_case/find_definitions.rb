@@ -17,7 +17,7 @@ module DisplayCase
   private
   def self.display_case_load(file)
     @file_changes ||= {}
-    if File.exists?(file) && (@file_changes[file].to_i < (mtime = File.mtime(file).to_i))
+    if File.exist?(file) && (@file_changes[file].to_i < (mtime = File.mtime(file).to_i))
       begin
         load file
         @file_changes[file] = mtime
