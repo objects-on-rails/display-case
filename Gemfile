@@ -6,5 +6,5 @@ group :development, :test do
   gem 'rake'
   gem 'json-jruby', :platform => :jruby
   gem "activesupport"
-  gem "activerecord", ">= 6.0.3.5"
+  gem "activerecord", ">= 6.1.6.1"
 end
