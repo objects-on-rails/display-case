@@ -1,33 +1,31 @@
 GIT
-  remote: git://github.com/nulldb/nulldb.git
-  revision: 147bb9426baebcc0283784a5919823d4d5beef12
+  remote: https://github.com/nulldb/nulldb.git
+  revision: 4cdeb2e87756982a3d551e48737b8fd48f7e5e1a
   specs:
-    activerecord-nulldb-adapter (0.7.0)
-      activerecord (>= 5.2.0, < 6.3)
+    activerecord-nulldb-adapter (0.8.0)
+      activerecord (>= 5.2.0, < 7.1)
 
 GEM
   remote: http://rubygems.org/
   specs:
-    activemodel (6.1.6.1)
-      activesupport (= 6.1.6.1)
-    activerecord (6.1.6.1)
-      activemodel (= 6.1.6.1)
-      activesupport (= 6.1.6.1)
-    activesupport (6.1.6.1)
+    activemodel (7.0.4.2)
+      activesupport (= 7.0.4.2)
+    activerecord (7.0.4.2)
+      activemodel (= 7.0.4.2)
+      activesupport (= 7.0.4.2)
+    activesupport (7.0.4.2)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
-      zeitwerk (~> 2.3)
-    concurrent-ruby (1.1.10)
+    concurrent-ruby (1.2.0)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     minitest (5.16.2)
     rake (13.0.1)
     rr (1.2.1)
-    tzinfo (2.0.5)
+    tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    zeitwerk (2.6.0)
 
 PLATFORMS
   ruby
